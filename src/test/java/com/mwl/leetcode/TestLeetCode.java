@@ -27,4 +27,10 @@ public class TestLeetCode {
         System.out.println(res);
 
     }
+    @Test
+    public void testLeetCode05(){
+        LeetCode05 l = new LeetCode05();
+        l.longestPalindrome("cbadabc");
+
+    }
 }
