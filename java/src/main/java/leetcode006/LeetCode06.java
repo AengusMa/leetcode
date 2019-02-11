@@ -1,4 +1,4 @@
-package com.mwl.leetcode;
+package leetcode006;
 
 /**
  * @author mawenlong
