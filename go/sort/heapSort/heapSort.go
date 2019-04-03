@@ -12,7 +12,7 @@ func heapSort(nums []int) {
 	for i := 0; i < len(nums); i++ {
 		siftUp(nums, i)
 	}
-	fmt.Println("构建堆后：", nums)
+	// fmt.Println("构建堆后：", nums)
 	for n := len(nums) - 1; n > 0; n-- {
 		// 因为每次完成堆的构造后, 根节点为最大值节点
 		// 将根节点与最后一个节点交换
