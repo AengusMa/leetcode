@@ -67,17 +67,11 @@ func choosePivotMedianOfThree(arr []int, left, right int) int {
 	}
 }
 func main() {
-	// nums := []int{1, 1, 2, 2, 2, 2, 2, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 14, 4, 4, 1, 1, 1, 4, 4, 4, 4, 4, 2, 5, 4, 4, 7, 4, 4, 4, 4, 4, 3, 1, 1, 1, 1, 1}
-	// nums := getArray(30, 20)
-	// nums := []int{8, 15, 4, 15, 11, 2, 13, 12, 4, 14, 0, 10, 6, 18, 9, 15, 6, 13, 12, 14}
-	// nums := []int{4, 4, 2, 0}
-	// qSort(nums)
-	// fmt.Println(nums)
-	testQuick(10000000)
-	testSortInts(10000000)
+	testQuick(10000000, 2000000000)
+	testSortInts(10000000, 2000000000)
 }
-func testQuick(len int) {
-	nums := getArray(len, 2000000000)
+func testQuick(len, max int) {
+	nums := getArray(len, max)
 	start := time.Now()
 	qSort(nums)
 	cost := time.Since(start)
@@ -96,8 +90,8 @@ func testQuick(len int) {
 	fmt.Printf("快速排序时间(重复数组)cost=[%s]", cost)
 	println()
 }
-func testSortInts(len int) {
-	nums := getArray(len, 2000000000)
+func testSortInts(len, max int) {
+	nums := getArray(len, max)
 	start := time.Now()
 	sort.Ints(nums)
 	cost := time.Since(start)
