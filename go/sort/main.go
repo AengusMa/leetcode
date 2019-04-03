@@ -2,147 +2,115 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"sort"
 	"time"
+
+	heapSort "./heapSort"
+	mergeSort "./mergeSort"
+	quickV1 "./quickV1"
+	quickV2 "./quickV2"
+	shellSort "./shellSort"
+	simpleSort "./simpleSort"
+	utils "./utils"
 )
 
-func qSort(arr []int) {
-	if arr == nil || len(arr) == 0 {
-		return
-	}
-	quickSort(arr, 0, len(arr)-1)
+func testQuickV1(len, max int) {
+	nums := utils.GetArray(len, max)
+	start := time.Now()
+	quickV1.Sort(nums)
+	cost := time.Since(start)
+	fmt.Print("快速排序时间(无序)cost=", cost)
+	nums = utils.GetSortArray(len, false)
+	start = time.Now()
+	quickV1.Sort(nums)
+	cost = time.Since(start)
+	fmt.Print("快速排序时间(有序数组)cost=", cost)
+	nums = utils.GetSameArray(len)
+	start = time.Now()
+	quickV1.Sort(nums)
+	cost = time.Since(start)
+	fmt.Println("快速排序时间(重复数组)cost=", cost)
 }
-func quickSort(arr []int, low, high int) {
-	if low >= high {
-		return
-	}
-	// 数据分为三个区
-	posL, posR := partition(arr, low, high)
-	quickSort(arr, low, posL)
-	quickSort(arr, posR, high)
 
+func testQuickV2(len, max int) {
+	nums := utils.GetArray(len, max)
+	start := time.Now()
+	quickV2.Sort(nums)
+	cost := time.Since(start)
+	fmt.Print("快速排序时间(无序)cost=", cost)
+	nums = utils.GetSortArray(len, false)
+	start = time.Now()
+	quickV2.Sort(nums)
+	cost = time.Since(start)
+	fmt.Print("快速排序时间(有序数组)cost=", cost)
+	nums = utils.GetSameArray(len)
+	start = time.Now()
+	quickV2.Sort(nums)
+	cost = time.Since(start)
+	fmt.Println("快速排序时间(重复数组)cost=", cost)
 }
+func testInnerSort(len, max int) {
+	nums := utils.GetArray(len, max)
+	start := time.Now()
+	sort.Ints(nums)
+	cost := time.Since(start)
+	fmt.Print("自带排序时间(无序)cost=", cost)
+	nums = utils.GetSortArray(len, false)
+	start = time.Now()
+	sort.Ints(nums)
+	cost = time.Since(start)
+	fmt.Print("自带排序时间(有序数组)cost=", cost)
+	nums = utils.GetSameArray(len)
+	start = time.Now()
+	sort.Ints(nums)
+	cost = time.Since(start)
+	fmt.Println("快速排序时间(重复数组)cost=", cost)
+}
+func testHeapSort() {
+	nums := utils.GetArray(20, 50)
+	heapSort.Sort(nums)
+	fmt.Println("堆排序结果：", nums)
+}
+func testMergeSort() {
+	nums := utils.GetArray(20, 50)
+	mergeSort.Sort(nums)
+	fmt.Println("归并排序结果：", nums)
+}
+func testShellSort() {
+	nums := utils.GetArray(20, 50)
+	shellSort.Sort(nums)
+	fmt.Println("归并排序结果：", nums)
+}
+func testSimpleSort() {
+	nums := utils.GetArray(20, 50)
+	simpleSort.SelectSort(nums)
+	fmt.Println("选择排序结果：", nums)
 
-func partition(arr []int, left, right int) (int, int) {
-	p_index := choosePivotMedianOfThree(arr, left, right)
-	if p_index != left {
-		arr[p_index], arr[left] = arr[left], arr[p_index]
-	}
-	p := arr[left]
-	i := left + 1
-	sameLen := 1
-	for j := left + 1; j <= right; j++ {
-		if arr[j] <= p {
-			arr[j], arr[i] = arr[i], arr[j]
-			// 相等的元素放在头部
-			if arr[i] == p {
-				arr[i], arr[left+sameLen] = arr[left+sameLen], arr[i]
-				sameLen++
-			}
-			i++
+	nums = utils.GetArray(20, 50)
+	simpleSort.InsertSort(nums)
+	fmt.Println("插入排序结果：", nums)
 
-		}
-	}
-	posRight := i
-	posLeft := posRight - sameLen - 1
-	// 相等的元素移动中间
-	for ; sameLen > 0 && arr[i-1] != p; sameLen-- {
-		arr[i-1], arr[left+sameLen-1] = arr[left+sameLen-1], arr[i-1]
-		i--
-	}
-	return posLeft, posRight
+	nums = utils.GetArray(20, 50)
+	simpleSort.BubbleSort(nums)
+	fmt.Println("冒泡排序结果：", nums)
 }
-func choosePivotFirst(arr []int, left, right int) int {
-	return left
-}
-func choosePivotMedianOfThree(arr []int, left, right int) int {
-	mid := left + ((right - left) >> 1)
-	if (arr[mid] > arr[right] && arr[mid] < arr[left]) || (arr[mid] > arr[left] && arr[mid] < arr[right]) {
-		return mid
-	} else if (arr[left] > arr[right] && arr[left] < arr[mid]) || (arr[left] > arr[mid] && arr[left] < arr[right]) {
-		return left
-	} else {
-		return right
-	}
+func testQuickSort() {
+	nums := utils.GetArray(20, 50)
+	quickV1.Sort(nums)
+	fmt.Println("快速排序V1结果：", nums)
+
+	nums = utils.GetArray(20, 50)
+	quickV2.Sort(nums)
+	fmt.Println("快速排序V2结果：", nums)
 }
 func main() {
-	// nums := []int{1, 1, 2, 2, 2, 2, 2, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 14, 4, 4, 1, 1, 1, 4, 4, 4, 4, 4, 2, 5, 4, 4, 7, 4, 4, 4, 4, 4, 3, 1, 1, 1, 1, 1}
-	// nums := getArray(30, 20)
-	// nums := []int{8, 15, 4, 15, 11, 2, 13, 12, 4, 14, 0, 10, 6, 18, 9, 15, 6, 13, 12, 14}
-	// nums := []int{4, 4, 2, 0}
-	// qSort(nums)
-	// fmt.Println(nums)
-	testQuick(10000000)
-	testSortInts(10000000)
-}
-func testQuick(len int) {
-	nums := getArray(len, 2000000000)
-	start := time.Now()
-	qSort(nums)
-	cost := time.Since(start)
-	fmt.Printf("快速排序时间(无序)cost=[%s]", cost)
-	print("=========")
-	nums = getSortArray(len, false)
-	start = time.Now()
-	qSort(nums)
-	cost = time.Since(start)
-	fmt.Printf("快速排序时间(有序数组)cost=[%s]", cost)
-	print("=========")
-	nums = getSameArray(len)
-	start = time.Now()
-	qSort(nums)
-	cost = time.Since(start)
-	fmt.Printf("快速排序时间(重复数组)cost=[%s]", cost)
-	println()
-}
-func testSortInts(len int) {
-	nums := getArray(len, 2000000000)
-	start := time.Now()
-	sort.Ints(nums)
-	cost := time.Since(start)
-	fmt.Printf("自带排序时间(无序)cost=[%s]", cost)
-	print("=========")
-	nums = getSortArray(len, false)
-	start = time.Now()
-	sort.Ints(nums)
-	cost = time.Since(start)
-	fmt.Printf("自带排序时间(有序数组)cost=[%s]", cost)
-	print("=========")
-	nums = getSameArray(len)
-	start = time.Now()
-	sort.Ints(nums)
-	cost = time.Since(start)
-	fmt.Printf("快速排序时间(重复数组)cost=[%s]", cost)
-	println()
-}
-func getSortArray(len int, desc bool) []int {
-	result := []int{}
-	if desc {
-		for i := len - 1; i > 0; i-- {
-			result = append(result, i)
-		}
-	} else {
-		for i := 0; i < len; i++ {
-			result = append(result, i)
-		}
-	}
-	return result
-}
-
-func getArray(len, max int) []int {
-	rand.Seed(time.Now().Unix())
-	result := []int{}
-	for i := 0; i < len; i++ {
-		result = append(result, rand.Intn(max))
-	}
-	return result
-}
-
-func getSameArray(len int) []int {
-	result := []int{}
-	for i := 0; i < len; i++ {
-		result = append(result, 10)
-	}
-	return result
+	testHeapSort()
+	testMergeSort()
+	testShellSort()
+	testSimpleSort()
+	testQuickSort()
+	//2000000000
+	// testQuickV1(20, 50000000)
+	testQuickV2(200000, 50000000)
+	testInnerSort(200000, 50000000)
 }

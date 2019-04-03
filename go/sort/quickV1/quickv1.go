@@ -1,12 +1,7 @@
-package main
+package quickv1
 
-import (
-	"fmt"
-	"math/rand"
-	"time"
-)
-
-func qSort(nums []int) {
+// Sort 快速排序
+func Sort(nums []int) {
 	if nums == nil || len(nums) == 0 {
 		return
 	}
@@ -22,9 +17,9 @@ func quickSort(nums []int, left, right int) {
 	quickSort(nums, pos+1, right)
 }
 func partition(nums []int, left, right int) int {
-	p_index := left
-	if p_index != left {
-		nums[p_index], nums[left] = nums[left], nums[p_index]
+	pIndex := left
+	if pIndex != left {
+		nums[pIndex], nums[left] = nums[left], nums[pIndex]
 	}
 	i := left + 1
 	p := nums[left]
@@ -46,20 +41,4 @@ func choosePivotMedianOfThree(arr []int, left, right int) int {
 	} else {
 		return right
 	}
-}
-func main() {
-	nums := getArray(90, 10000)
-	fmt.Println("原始：", nums)
-	qSort(nums)
-	fmt.Println(nums)
-
-}
-
-func getArray(len, max int) []int {
-	rand.Seed(time.Now().Unix())
-	result := []int{}
-	for i := 0; i < len; i++ {
-		result = append(result, rand.Intn(max))
-	}
-	return result
 }

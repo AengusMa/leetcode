@@ -1,8 +1,11 @@
-package main
+package heapsort
 
 import "fmt"
 
-func sort(nums []int) {
+// Sort 排序
+// 大顶堆：arr[i] >= arr[2i+1] && arr[i] >= arr[2i+2]
+// i结点的父结点下标就为(i – 1) / 2。它的左右子结点下标分别为2 * i + 1和2 * i + 2。
+func Sort(nums []int) {
 	heapSort(nums)
 }
 func heapSort(nums []int) {
@@ -74,16 +77,4 @@ func siftUp(nums []int, k int) {
 		}
 
 	}
-}
-
-// 大顶堆：arr[i] >= arr[2i+1] && arr[i] >= arr[2i+2]
-// i结点的父结点下标就为(i – 1) / 2。它的左右子结点下标分别为2 * i + 1和2 * i + 2。
-func main() {
-	// nums := []int{1, 1, 2, 2, 2, 2, 2, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 14, 4, 4, 1, 1, 1, 4, 4, 4, 4, 4, 2, 5, 4, 4, 7, 4, 4, 4, 4, 4, 3, 1, 1, 1, 1, 1}
-	// nums := []int{8, 15, 4, 15, 11, 2, 13, 12, 4, 14, 0, 10, 6, 18, 9, 15, 6, 13, 12, 14}
-	// nums := []int{4, 4, 2, 0}
-	nums := []int{8, 15, 4, 11, 2, 13, 0, 10, 6, 18, 9, 12, 14}
-	fmt.Println(nums)
-	heapSort(nums)
-	fmt.Println(nums)
 }

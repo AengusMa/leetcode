@@ -1,8 +1,7 @@
-package main
+package mergesort
 
-import "fmt"
-
-func sort(nums []int) {
+// Sort 归并排序
+func Sort(nums []int) {
 	mergeSort(nums, 0, len(nums)-1)
 }
 func mergeSort(nums []int, left, right int) {
@@ -38,13 +37,4 @@ func merge(nums []int, left, mid, right int) {
 		nums[j] = tmp[i]
 		j++
 	}
-}
-
-func main() {
-	// nums := []int{1, 1, 2, 2, 2, 2, 2, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 14, 4, 4, 1, 1, 1, 4, 4, 4, 4, 4, 2, 5, 4, 4, 7, 4, 4, 4, 4, 4, 3, 1, 1, 1, 1, 1}
-	nums := []int{8, 15, 4, 15, 11, 2, 13, 12, 4, 14, 0, 10, 6, 18, 9, 15, 6, 13, 12, 14}
-	// nums := []int{4, 4, 2, 0}
-	fmt.Println(nums)
-	sort(nums)
-	fmt.Println(nums)
 }
