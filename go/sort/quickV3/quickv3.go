@@ -1,20 +1,43 @@
-package quickv2
+package quickv3
 
-// Sort 优化重复数据多的情况
-func Sort(arr []int) {
-	if arr == nil || len(arr) == 0 {
+import "sync"
+
+var wg sync.WaitGroup
+
+// Sort 快速排序
+func Sort(nums []int) {
+	if nums == nil || len(nums) == 0 {
 		return
 	}
-	quickSort(arr, 0, len(arr)-1)
+	quickSort(nums, 0, len(nums)-1)
+	wg.Wait()
 }
-func quickSort(arr []int, left, right int) {
+
+func quickSort(nums []int, left, right int) {
 	if left >= right {
 		return
 	}
-	// 数据分为三个区
-	posL, posR := partition(arr, left, right)
-	quickSort(arr, left, posL)
-	quickSort(arr, posR, right)
+	posL, posR := partition(nums, left, right)
+	if right-left < 50 {
+		wg.Add(1)
+		go insertSort(nums, left, right)
+	} else {
+		quickSort(nums, left, posL)
+		quickSort(nums, posR, right)
+	}
+}
+
+// InsertSort 插入排序
+func insertSort(nums []int, left, right int) {
+	defer wg.Done()
+	for i := left + 1; i <= right; i++ {
+		tmp := nums[i]
+		j := i - 1
+		for ; j >= 0 && nums[j] > tmp; j-- {
+			nums[j], nums[j+1] = nums[j+1], nums[j]
+		}
+		nums[j+1] = tmp
+	}
 }
 
 func partition(arr []int, left, right int) (int, int) {
@@ -45,9 +68,6 @@ func partition(arr []int, left, right int) (int, int) {
 		i--
 	}
 	return posLeft, posRight
-}
-func choosePivotFirst(arr []int, left, right int) int {
-	return left
 }
 func choosePivotMedianOfThree(arr []int, left, right int) int {
 	mid := left + ((right - left) >> 1)

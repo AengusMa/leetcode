@@ -34,3 +34,19 @@ func GetSameArray(len int) []int {
 	}
 	return result
 }
+
+// IsSorted 数组是否有序
+func IsSorted(nums []int, desc bool) bool {
+	for i := 1; i < len(nums); i++ {
+		if desc {
+			if nums[i-1] < nums[i] {
+				return false
+			}
+		} else {
+			if nums[i-1] > nums[i] {
+				return false
+			}
+		}
+	}
+	return true
+}
