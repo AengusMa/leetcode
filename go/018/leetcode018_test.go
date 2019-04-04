@@ -13,7 +13,7 @@ import (
 //   [-2,  0, 0, 2]
 // ]
 
-func Test011(t *testing.T) {
+func Test018(t *testing.T) {
 	nums := []int{-3, -2, -1, 0, 0, 1, 2, 3}
 	fmt.Println(fourSum(nums, 0))
 }
