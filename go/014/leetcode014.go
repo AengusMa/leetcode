@@ -1,4 +1,4 @@
-package main
+package leetcode014
 
 func longestCommonPrefix(strs []string) string {
 	if strs == nil || len(strs) == 0 {
@@ -28,8 +28,4 @@ func min(a, b int) int {
 	} else {
 		return b
 	}
-}
-func main() {
-	strs := []string{"caa", ""}
-	println(longestCommonPrefix(strs))
 }

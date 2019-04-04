@@ -1,4 +1,4 @@
-package main
+package sort
 
 import (
 	"fmt"
@@ -111,6 +111,10 @@ func testCorrect() {
 	testSort("快速排序V2", quickV2.Sort)
 	testSort("快速排序(多线程)V3", quickV3.Sort)
 }
+func testMy() {
+	data := [][]string{{"1ew", "中文中文中卫", "2we"}, {"3242", "wefw22222223232", "2we"}}
+	utils.Print(data)
+}
 func main() {
 	// 测试正确性
 	testCorrect()
@@ -124,8 +128,4 @@ func main() {
 	testBatchPerformance(data, 8000000, 2000000000)
 	// testTable()
 	// testMy()
-}
-func testMy() {
-	data := [][]string{{"1ew", "中文中文中卫", "2we"}, {"3242", "wefw22222223232", "2we"}}
-	utils.Print(data)
 }

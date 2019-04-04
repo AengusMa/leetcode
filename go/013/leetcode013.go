@@ -1,4 +1,4 @@
-package main
+package leetcode013
 
 func romanToInt(s string) int {
 	result := 0
@@ -55,10 +55,6 @@ func romanToInt(s string) int {
 		case 'M':
 			result += 1000
 		}
-		println(result)
 	}
 	return result
-}
-func main() {
-	println(romanToInt("MCMXCIV"))
 }

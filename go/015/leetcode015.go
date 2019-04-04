@@ -1,7 +1,6 @@
-package main
+package leetcode015
 
 import (
-	"fmt"
 	"sort"
 )
 
@@ -41,9 +40,4 @@ func threeSum(nums []int) [][]int {
 		}
 	}
 	return result
-}
-
-func main() {
-	nums := []int{0, 0, 0}
-	fmt.Println(threeSum(nums))
 }

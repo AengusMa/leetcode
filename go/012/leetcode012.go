@@ -1,4 +1,4 @@
-package main
+package leetcode012
 
 func intToRoman(num int) string {
 	result := ""
@@ -20,8 +20,4 @@ func intToRoman1(num int) string {
 	X := []string{"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"}
 	I := []string{"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"}
 	return M[num/1000] + C[num%1000/100] + X[num%100/10] + I[num%10]
-}
-
-func main() {
-	println(intToRoman(1994))
 }

@@ -1,4 +1,4 @@
-package main
+package leetcode011
 
 func maxArea(height []int) int {
 	result := 0
@@ -30,8 +30,4 @@ func max(a, b int) int {
 	} else {
 		return a
 	}
-}
-func main() {
-	height := []int{1, 8, 6, 2, 5, 4, 8, 3, 7}
-	println(maxArea(height))
 }

@@ -1,4 +1,4 @@
-package main
+package leetcode016
 
 import "sort"
 
@@ -39,11 +39,6 @@ func abs(a int) int {
 	} else {
 		return -a
 	}
-}
-func main() {
-	nums := []int{-3, -2, -5, 3, -4}
-	println(threeSumClosest(nums, -1))
-	println(maxDepth(31))
 }
 
 // it returns 2*ceil(lg(n+1)).
