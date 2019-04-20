@@ -17,7 +17,7 @@ func Test036(t *testing.T) {
 		{'.', '.', '.', '4', '1', '9', '.', '.', '5'},
 		{'.', '.', '.', '.', '8', '.', '.', '7', '9'},
 	}
-	solveSudoku(board)
+	solveSudoku1(board)
 	print(board)
 }
 func print(bo [][]byte) {
@@ -33,6 +33,4 @@ func TestDiv(t *testing.T) {
 	a := int(num / 3)
 	println(a)
 
-	fmt.Println(byteToInt('3'))
-	fmt.Printf("%c", intToByte(3))
 }

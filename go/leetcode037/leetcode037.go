@@ -4,19 +4,19 @@ func solveSudoku(board [][]byte) {
 	if board == nil || len(board) == 0 {
 		return
 	}
-	solve(board)
+	solve1(board)
 }
 
 var bytes = []byte{'1', '2', '3', '4', '5', '6', '7', '8', '9'}
 
-func solve(board [][]byte) bool {
+func solve1(board [][]byte) bool {
 	for i := 0; i < len(board); i++ {
 		for j := 0; j < len(board[i]); j++ {
 			if board[i][j] == '.' {
 				for _, c := range bytes {
 					if isValid(board, i, j, c) {
 						board[i][j] = c
-						if solve(board) {
+						if solve1(board) {
 							return true
 						} else {
 							board[i][j] = '.'
@@ -49,42 +49,39 @@ func solveSudoku1(board [][]byte) {
 	var positions [][2]int
 	for i := 0; i < 9; i++ {
 		for j := 0; j < 9; j++ {
-			if v := board[i][j]; v != '.' {
-				v -= '1'
-				rows[i][v] = true
-				cols[j][v] = true
-				blocks[i/3][j/3][v] = true
+			if ele := board[i][j]; ele != '.' {
+				ele -= '1'
+				rows[i][ele] = true
+				cols[j][ele] = true
+				blocks[i/3][j/3][ele] = true
 			} else {
 				positions = append(positions, [2]int{i, j})
 			}
 		}
 	}
-	dfs(board, rows, cols, blocks, positions, 0)
+	solve(board, rows, cols, blocks, positions, 0)
+
 }
 
-func dfs(board [][]byte, rows, cols [9][9]bool, blocks [3][3][9]bool, positions [][2]int, offset int) bool {
-	if offset == len(positions) {
+func solve(board [][]byte, rows, cols [9][9]bool, blocks [3][3][9]bool, positions [][2]int, offset int) bool {
+	if len(positions) == offset {
 		return true
 	}
-	pos := positions[offset]
-	row, col := pos[0], pos[1]
-	blockRow := row / 3
-	blockCol := col / 3
+	row := positions[offset][0]
+	col := positions[offset][1]
 	for i := 0; i < 9; i++ {
-		if !rows[row][i] && !cols[col][i] && !blocks[blockRow][blockCol][i] {
-			// 尝试
+		if !rows[row][i] && !cols[col][i] && !blocks[row/3][col/3][i] {
 			rows[row][i] = true
 			cols[col][i] = true
-			blocks[blockRow][blockCol][i] = true
-			ok := dfs(board, rows, cols, blocks, positions, offset+1)
+			blocks[row/3][col/3][i] = true
+			ok := solve(board, rows, cols, blocks, positions, offset+1)
 			if ok {
 				board[row][col] = byte(i) + '1'
 				return true
 			}
-			// 	回退
 			rows[row][i] = false
 			cols[col][i] = false
-			blocks[blockRow][blockCol][i] = false
+			blocks[row/3][col/3][i] = false
 		}
 	}
 	return false
