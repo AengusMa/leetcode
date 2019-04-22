@@ -1,21 +1,24 @@
 package leetcode042
 
 func trap(height []int) int {
-	result := 0
-	lh := 0
-	for i := 0; i < len(height); i++ {
-		if lh == 0 {
-			if height[i] != 0 {
-				lh = height[i]
+	sum, maxLeft, maxRight := 0, 0, 0
+	left, right := 0, len(height)-1
+	for left <= right {
+		if height[left] <= height[right] {
+			if maxLeft <= height[left] {
+				maxLeft = height[left]
+			} else {
+				sum += maxLeft - height[left]
 			}
+			left++
 		} else {
-			if height[i] < lh {
-				result += lh - height[i]
-			} else if height[i] > lh {
-
+			if maxRight <= height[right] {
+				maxRight = height[right]
+			} else {
+				sum += maxRight - height[right]
 			}
+			right--
 		}
-
 	}
-	return result
+	return sum
 }
