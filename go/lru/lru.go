@@ -7,12 +7,6 @@ type Node struct {
 	pre, next Node
 }
 
-var (
-	count, capacity int
-	head, tail      Node
-	cache           map[string]Node
-)
-
 // LRUCache ...
 type LRUCache struct {
 	count, capacity int
@@ -29,8 +23,19 @@ func (lru *LRUCache) Get(key string) int {
 	return node.value
 }
 func (lru *LRUCache) moveNodeToHead(node Node) {
+	node.pre = lru.head
+	node.next = lru.head.next
 
+	lru.head.next.pre = node
+	lru.head.next = node
 }
-func init() {
 
+func (lru *LRUCache) set(key string, value int) {
+	node, ok := lru.cache[key]
+	if !ok {
+
+	} else {
+		node.value = value
+		lru.moveNodeToHead(node)
+	}
 }
