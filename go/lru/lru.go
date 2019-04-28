@@ -1,7 +1,9 @@
 // LRU算法实现
 package lru
 
-import "sync"
+import (
+	"sync"
+)
 
 type Node struct {
 	key       interface{}
@@ -18,18 +20,17 @@ type LRUCache struct {
 }
 
 func New(capacity int) *LRUCache {
-	res := new(LRUCache)
-	res.count = 0
-	res.capacity = capacity
-
-	res.head = new(Node)
+	res := &LRUCache{
+		count:    0,
+		capacity: capacity,
+		head:     new(Node),
+		tail:     new(Node),
+		cache:    make(map[interface{}]*Node),
+	}
 	res.head.pre = nil
-	res.tail = new(Node)
 	res.tail.next = nil
 	res.head.next = res.tail
 	res.tail.pre = res.head
-
-	res.cache = map[interface{}]*Node{}
 	return res
 }
 func (lru *LRUCache) Get(key string) interface{} {
@@ -60,6 +61,21 @@ func (lru *LRUCache) Set(key string, value int) {
 		lru.moveNodeToHead(node)
 	}
 
+}
+
+func (lru *LRUCache) containsKey(key string) bool {
+	return false
+}
+
+func (lru *LRUCache) remove(key string) interface{} {
+	return nil
+}
+func (lru *LRUCache) size(key string) int {
+	return 0
+}
+
+func (lru *LRUCache) clear(key string) int {
+	return 0
 }
 
 // 移动节点到头节点
