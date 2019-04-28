@@ -22,3 +22,12 @@ func TestLRUCache(t *testing.T) {
 	lruCache.Set("aaa", 7)
 	lruCache.PrintCache()
 }
+
+func (lru *LRUCache) PrintCache() {
+	node := lru.head.next
+	for node != nil && node != lru.tail {
+		println("key:", node.key.(string), "\t value:", node.value.(int))
+		node = node.next
+	}
+	println("--------------------------------------")
+}

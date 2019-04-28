@@ -1,9 +1,11 @@
 // LRU算法实现
 package lru
 
+import "sync"
+
 type Node struct {
-	key       string
-	value     int
+	key       interface{}
+	value     interface{}
 	pre, next *Node
 }
 
@@ -11,7 +13,8 @@ type Node struct {
 type LRUCache struct {
 	count, capacity int
 	head, tail      *Node
-	cache           map[string]*Node
+	cache           map[interface{}]*Node
+	lock            sync.Mutex
 }
 
 func New(capacity int) *LRUCache {
@@ -26,16 +29,37 @@ func New(capacity int) *LRUCache {
 	res.head.next = res.tail
 	res.tail.pre = res.head
 
-	res.cache = map[string]*Node{}
+	res.cache = map[interface{}]*Node{}
 	return res
 }
-func (lru *LRUCache) Get(key string) int {
+func (lru *LRUCache) Get(key string) interface{} {
+	lru.lock.Lock()
+	defer lru.lock.Unlock()
 	node, ok := lru.cache[key]
 	if !ok {
-		return -1
+		return nil
 	}
 	lru.moveNodeToHead(node)
+
 	return node.value
+}
+func (lru *LRUCache) Set(key string, value int) {
+	lru.lock.Lock()
+	defer lru.lock.Unlock()
+	node, ok := lru.cache[key]
+	if !ok {
+		tmpNode := new(Node)
+		tmpNode.key = key
+		tmpNode.value = value
+		lru.cache[key] = tmpNode
+
+		lru.addNodeToHead(tmpNode)
+		lru.increase()
+	} else {
+		node.value = value
+		lru.moveNodeToHead(node)
+	}
+
 }
 
 // 移动节点到头节点
@@ -62,21 +86,7 @@ func (lru *LRUCache) addNodeToHead(node *Node) {
 	lru.head.next.pre = node
 	lru.head.next = node
 }
-func (lru *LRUCache) Set(key string, value int) {
-	node, ok := lru.cache[key]
-	if !ok {
-		tmpNode := new(Node)
-		tmpNode.key = key
-		tmpNode.value = value
-		lru.cache[key] = tmpNode
 
-		lru.addNodeToHead(tmpNode)
-		lru.increase()
-	} else {
-		node.value = value
-		lru.moveNodeToHead(node)
-	}
-}
 func (lru *LRUCache) increase() {
 	lru.count++
 	if lru.count > lru.capacity {
@@ -89,13 +99,4 @@ func (lru *LRUCache) popTail() *Node {
 	res := lru.tail.pre
 	lru.removeNode(res)
 	return res
-}
-
-func (lru *LRUCache) PrintCache() {
-	node := lru.head.next
-	for node != nil && node != lru.tail {
-		println("key:", node.key, "\t value:", node.value)
-		node = node.next
-	}
-	println("--------------------------------------")
 }
