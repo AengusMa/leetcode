@@ -1,5 +1,6 @@
 package leetcode082
 
+// ListNode ..
 type ListNode struct {
 	Val  int
 	Next *ListNode
