@@ -8,14 +8,11 @@ type TreeNode struct {
 
 func levelOrderBottom(root *TreeNode) [][]int {
 	res := dfs(root, make([][]int, 0), 0)
-
 	length := len(res)
-
 	for i := length/2 - 1; i >= 0; i-- {
 		opp := length - 1 - i
 		res[i], res[opp] = res[opp], res[i]
 	}
-
 	return res
 }
 
