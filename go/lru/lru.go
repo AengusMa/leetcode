@@ -33,6 +33,8 @@ func New(capacity int) *LRUCache {
 	res.tail.pre = res.head
 	return res
 }
+
+// Get 获取
 func (lru *LRUCache) Get(key string) interface{} {
 	lru.lock.Lock()
 	defer lru.lock.Unlock()
@@ -44,6 +46,8 @@ func (lru *LRUCache) Get(key string) interface{} {
 
 	return node.value
 }
+
+// Get 设置
 func (lru *LRUCache) Set(key string, value int) {
 	lru.lock.Lock()
 	defer lru.lock.Unlock()
