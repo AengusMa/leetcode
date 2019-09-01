@@ -43,7 +43,7 @@ func heapSort1(nums []int) {
 
 // 下沉
 func siftDown(nums []int, k, len int) {
-	//获取左子节点索引
+	// 获取左子节点索引
 	child := 2*k + 1
 	// 判断是否存在子节点
 	for child < len {

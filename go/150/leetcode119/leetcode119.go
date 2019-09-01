@@ -1,7 +1,7 @@
 package leetcode119
 
 func getRow(rowIndex int) []int {
-	result := [][]int{}
+	var result [][]int
 	for i := 0; i <= rowIndex; i++ {
 		result = append(result, make([]int, i+1))
 		for j := 0; j <= i; j++ {
