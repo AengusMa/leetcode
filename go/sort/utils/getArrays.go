@@ -4,7 +4,7 @@ import "math/rand"
 
 // GetSortArray 获取有序数组
 func GetSortArray(len int, desc bool) []int {
-	result := []int{}
+	var result []int
 	if desc {
 		for i := len - 1; i > 0; i-- {
 			result = append(result, i)
@@ -19,7 +19,7 @@ func GetSortArray(len int, desc bool) []int {
 
 // GetArray 获取无序数组
 func GetArray(len, max int) []int {
-	result := []int{}
+	var result []int
 	for i := 0; i < len; i++ {
 		result = append(result, rand.Intn(max))
 	}
@@ -28,7 +28,7 @@ func GetArray(len, max int) []int {
 
 // GetSameArray 获取元素重复数组
 func GetSameArray(len int) []int {
-	result := []int{}
+	var result []int
 	for i := 0; i < len; i++ {
 		result = append(result, 10)
 	}
