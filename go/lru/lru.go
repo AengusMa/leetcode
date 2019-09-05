@@ -47,7 +47,7 @@ func (lru *LRUCache) Get(key string) interface{} {
 	return node.value
 }
 
-// Get 设置
+// Set 设置
 func (lru *LRUCache) Set(key string, value int) {
 	lru.lock.Lock()
 	defer lru.lock.Unlock()
