@@ -4,7 +4,7 @@ func solveNQueens(n int) [][]string {
 	// init board
 	board := BoardConstructor(n)
 	// result
-	result := [][]string{}
+	var result [][]string
 
 	var backtracking func(b *Board, col, n int)
 	backtracking = func(b *Board, col, n int) {
@@ -30,14 +30,14 @@ func solveNQueens(n int) [][]string {
 	return result
 }
 
-// board class
+// Board board class
 type Board struct {
 	M []string
 	N int
 }
 
 func BoardConstructor(n int) Board {
-	m := []string{}
+	var m []string
 	for i := 0; i < n; i++ {
 		temp := ""
 		for j := 0; j < n; j++ {
@@ -82,7 +82,7 @@ func (b *Board) IsSafe(row, col int) bool {
 }
 
 func (b *Board) Clone() []string {
-	m := []string{}
+	var m []string
 	for i := 0; i < b.N; i++ {
 		m = append(m, b.M[i])
 	}
