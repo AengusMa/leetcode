@@ -1,5 +1,6 @@
 package leetcode111
 
+// TreeNode 节点
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
