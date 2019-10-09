@@ -14,7 +14,7 @@ func TestLRUCache(t *testing.T) {
 	lruCache.PrintCache()
 	lruCache.Set("eee", 5)
 	lruCache.PrintCache()
-	println("这是访问了ddd后的结果")
+	println("这是访问了ddd后的结果：")
 	lruCache.Get("ddd")
 	lruCache.PrintCache()
 	lruCache.Set("fff", 6)
